@@ -42,7 +42,7 @@ class DataChunk8 implements DataChunk {
     // compare against step count to select the correct note
     int noteNumber = 0;
     int incrementNoteOnSample =
-        (notes[noteNumber].msDuration * format.sampleRate) ~/ 1000;
+        ((notes[noteNumber].msDuration * format.sampleRate) / 1000).round();
 
     int sampleMax = totalSamples;
     var amplify = (max + 1) / 2;
@@ -50,7 +50,7 @@ class DataChunk8 implements DataChunk {
       if (incrementNoteOnSample == step) {
         noteNumber += 1;
         incrementNoteOnSample +=
-            (notes[noteNumber].msDuration * format.sampleRate) ~/ 1000;
+            ((notes[noteNumber].msDuration * format.sampleRate) / 1000).round();
       }
 
       double theta = notes[noteNumber].frequency * (2 * pi) / format.sampleRate;
